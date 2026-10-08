@@ -1,0 +1,22 @@
+# ============================================================================
+# TASK 6: BACKUP AND RESTORE
+# ============================================================================
+
+# Run these commands from the terminal, NOT inside mongosh.
+
+# 1. Create compressed logical backup of working database
+mongodump --db=company_advanced --archive=company_advanced.archive --gzip
+
+# 2. Restore into target database company_advanced_restore
+mongorestore --archive=company_advanced.archive --gzip --nsFrom="company_advanced.*" --nsTo="company_advanced_restore.*"
+
+# 3. Verify restored collection counts inside mongosh
+mongosh
+
+use company_advanced_restore
+
+show collections
+
+db.employees.countDocuments()
+db.departments.countDocuments()
+db.sessions.countDocuments()
